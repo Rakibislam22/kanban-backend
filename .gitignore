@@ -1,0 +1,19 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Database
+db.sqlite3
+
+# Virtual Environment
+venv/
+env/
+.env
+
+# Media files
+media/
+
+# OS/IDE files
+.vscode/
+.idea/
+.DS_Store
