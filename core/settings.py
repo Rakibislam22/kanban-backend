@@ -39,13 +39,11 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(','
 
 # CORS (Cross-Origin Resource Sharing) settings
 # --------------------------------------------------------------------------
-# This list defines the frontend origins that are allowed to make requests to this backend.
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # For local frontend development
-    "http://127.0.0.1:3000", # Alternate local address
-    # Add your deployed frontend's URL here when you have it.
-    # e.g., "https://your-frontend-app.vercel.app"
-]
+# This setting reads a comma-separated string of allowed origins from an environment variable.
+# This makes it easy to configure for different environments (local, staging, production).
+# Example: "http://localhost:3000,https://your-frontend.app"
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
+
 
 
 # Application definition
