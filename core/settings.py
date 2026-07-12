@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-rwpd)3z0wtrb$^vk$4^582$1cq@d_^sp4u6qoqb_5zq7jgr*9a
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = []
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     
     # Third-party libraries
     'rest_framework',
+    'corsheaders',
     
     # Your custom apps
     'kanban',
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
