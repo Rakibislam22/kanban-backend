@@ -1,10 +1,10 @@
-from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import CustomUser
 from .serializers import UserRegistrationSerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
 
 # --- User Registration View (existing code) ---
@@ -14,7 +14,7 @@ class UserRegistrationView(generics.CreateAPIView):
     This endpoint is public and does not require authentication,
     as specified by the AllowAny permission class.
     """
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     # Override the default permission (IsAuthenticated) to allow anyone to register.
     permission_classes = (AllowAny,)
     serializer_class = UserRegistrationSerializer

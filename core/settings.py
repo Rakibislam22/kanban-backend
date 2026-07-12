@@ -169,3 +169,6 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+# Specify the custom user model for authentication
+AUTH_USER_MODEL = 'users.CustomUser'

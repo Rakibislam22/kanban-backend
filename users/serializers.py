@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import get_user_model
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     """
@@ -12,16 +12,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True, label="Confirm Password")
 
     class Meta:
-        model = User
-        # Define fields to be used for registration.
-        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name')
+        model = get_user_model()
+        # Define fields to be used for simple email/password registration.
+        fields = ('email', 'password', 'password2')
         extra_kwargs = {
             # Ensure password is write-only and has password validators.
-            'password': {'write_only': True, 'validators': [validate_password]},
-            # Mark other fields as required.
-            'first_name': {'required': True},
-            'last_name': {'required': True},
-            'email': {'required': True}
+            'password': {'write_only': True, 'validators': [validate_password]}
         }
 
     def validate(self, attrs):
@@ -37,11 +33,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         Create and return a new user with a hashed password.
         """
         # The create_user manager method handles password hashing automatically.
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
+        user = get_user_model().objects.create_user(email=validated_data['email'],
             password=validated_data['password']
         )
         return user
@@ -52,9 +44,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
     Provides read-only access to essential user information.
     """
     class Meta:
-        model = User
+        model = get_user_model()
         # Define the fields to be exposed in the user profile endpoint.
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('id', 'email', 'first_name', 'last_name')
         # Ensure these fields are read-only.
         read_only_fields = fields
 

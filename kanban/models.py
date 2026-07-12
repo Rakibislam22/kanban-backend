@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Task(models.Model):
     # Defining priority choices for the task
@@ -16,11 +17,19 @@ class Task(models.Model):
     ]
 
     title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Medium')
     due_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='To Do')
-    tags = models.CharField(max_length=255, blank=True, null=True) # Storing tags as a comma-separated string
+    tags = models.CharField(max_length=255, blank=True, null=True)  # Store tags as a comma-separated string.
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='created_tasks',
+    )
 
     def __str__(self):
         return self.title

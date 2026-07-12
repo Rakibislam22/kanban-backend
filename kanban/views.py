@@ -9,3 +9,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     # This viewset automatically provides list, create, retrieve, update, and destroy actions
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
