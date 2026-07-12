@@ -39,7 +39,7 @@ To get this project running on your local machine, follow these steps.
 1.  **Clone the Repository**
 
     ```bash
-    git clone https://github.com/Rakibislam22/kanban-backend
+    git clone https://github.com/Rakibislam22/kanban-backend.git
     cd kanban-backend
     ```
 
