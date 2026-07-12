@@ -60,17 +60,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
-    Customizes the default token claims to include user details.
+    Customizes the token response to include user's details.
     """
-    @classmethod
-    def get_token(cls, user):
-        # Get the default token from the parent class.
-        token = super().get_token(user)
+    def validate(self, attrs):
+        # The default result (access/refresh tokens)
+        data = super().validate(attrs)
 
-        # Add custom claims (user details) to the token payload.
-        token['username'] = user.username
-        token['email'] = user.email
-        token['first_name'] = user.first_name
-        token['last_name'] = user.last_name
+        # Add user details to the response
+        serializer = UserProfileSerializer(self.user)
+        data['user'] = serializer.data
 
-        return token
+        return data

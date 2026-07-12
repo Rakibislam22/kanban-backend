@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserRegistrationSerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
@@ -17,6 +18,16 @@ class UserRegistrationView(generics.CreateAPIView):
     # Override the default permission (IsAuthenticated) to allow anyone to register.
     permission_classes = (AllowAny,)
     serializer_class = UserRegistrationSerializer
+
+    def create(self, request, *args, **kwargs):
+        """
+        Overrides the default create method to return a custom success message.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED, headers=headers)
 
 # --- Custom Login View ---
 class CustomTokenObtainPairView(TokenObtainPairView):
