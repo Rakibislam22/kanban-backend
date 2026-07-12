@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     
     # Your custom apps
     'kanban',
-    'annotations'
+    'annotations',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Django REST Framework (DRF) settings
+REST_FRAMEWORK = {
+    # Set default authentication class to JWT
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # Set default permission class to require authentication
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
