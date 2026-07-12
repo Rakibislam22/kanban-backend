@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()  # loads environment variables from .env file
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,4 +146,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), # Access token expire in 60 mins
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Refresh token expire in 1 day
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }

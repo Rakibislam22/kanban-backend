@@ -5,9 +5,11 @@ from .serializers import UserRegistrationSerializer
 
 class UserRegistrationView(generics.CreateAPIView):
     """
-    API view for creating (registering) a new user.
-    This endpoint is public and does not require authentication.
+    API endpoint for creating (registering) a new user.
+    This endpoint is public and does not require authentication,
+    as specified by the AllowAny permission class.
     """
     queryset = User.objects.all()
-    permission_classes = (AllowAny,) # Override default permission to allow anyone to register
+    # Override the default permission (IsAuthenticated) to allow anyone to register.
+    permission_classes = (AllowAny,)
     serializer_class = UserRegistrationSerializer
