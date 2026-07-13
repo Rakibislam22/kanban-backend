@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     # Third-party libraries
     'rest_framework',
     'corsheaders',
+    'django_filters',
     
     # Your custom apps
     'kanban',
@@ -160,6 +161,9 @@ REST_FRAMEWORK = {
     # Set default permission class to require authentication
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
 

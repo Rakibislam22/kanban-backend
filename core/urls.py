@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('kanban.urls')), # Access your API at /api/tasks/
     path('api/auth/', include('users.urls')), # Authentication endpoints
-    path('api/annotations/', include('annotations.urls')),
+    path('api/', include('annotations.urls')),
 ]
 
 
