@@ -174,3 +174,9 @@ SIMPLE_JWT = {
 
 # Specify the custom user model for authentication
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# ImageKit.io settings
+# These credentials will be read from your environment variables.
+IMAGEKIT_PUBLIC_KEY = os.environ.get('IMAGEKIT_PUBLIC_KEY')
+IMAGEKIT_PRIVATE_KEY = os.environ.get('IMAGEKIT_PRIVATE_KEY')
+IMAGEKIT_URL_ENDPOINT = os.environ.get('IMAGEKIT_URL_ENDPOINT')

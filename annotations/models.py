@@ -2,8 +2,10 @@ from django.db import models
 
 # Model to store uploaded images
 class ImageUpload(models.Model):
-    # Uploading images to a specific folder
-    image = models.ImageField(upload_to='annotations/images/')
+    # Storing the URL of the image from ImageKit instead of the file itself
+    image_url = models.URLField(max_length=500)
+    # Storing the file ID from ImageKit for management purposes
+    image_file_id = models.CharField(max_length=100)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
