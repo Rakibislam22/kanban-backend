@@ -1,8 +1,9 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from django.conf import settings
+from drf_spectacular.utils import extend_schema, inline_serializer
 import traceback
 import requests  # Using requests directly to bypass a known bug in imagekitio SDK v4.x
 
@@ -98,6 +99,20 @@ class AnnotationViewSet(viewsets.ModelViewSet):
 class ImageKitAuthView(APIView):
     permission_classes = []
 
+    @extend_schema(
+        summary="ImageKit Authentication Parameters",
+        description="Generates client-side authentication parameters (token, expire, signature) for ImageKit frontend uploads.",
+        responses={
+            200: inline_serializer(
+                name='ImageKitAuthResponse',
+                fields={
+                    'token': serializers.CharField(),
+                    'expire': serializers.IntegerField(),
+                    'signature': serializers.CharField(),
+                }
+            )
+        }
+    )
     def get(self, request, *args, **kwargs):
         try:
             auth_params = imagekit.get_authentication_parameters()

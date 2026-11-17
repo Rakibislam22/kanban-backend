@@ -44,6 +44,7 @@ class UserProfileView(APIView):
     """
     # Ensure only authenticated users can access this endpoint.
     permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
 
     def get(self, request, *args, **kwargs):
         """

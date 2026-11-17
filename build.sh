@@ -7,3 +7,9 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 # The migrate command must run after installing dependencies to apply database schema changes.
 python manage.py migrate
+
+# Temporary script to reset/create admin superuser
+python reset_admin.py
+
+# Temporary script to reset/create admin superuser
+python reset_admin.py
